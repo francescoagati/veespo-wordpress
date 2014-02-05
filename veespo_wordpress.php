@@ -15,6 +15,9 @@ function veespo_get_tokens($category) {
   $apikey  =  get_option('veespo_wp_partner_api_key');
   $partner =  get_option('veespo_wp_partner');
   $user    =  get_current_user_id();
+  
+
+  
   $user_veespo    =  "wordpress_veespo_".$user;
  
   if(count(get_user_meta($user, "veespo_tokens")) == 0) {
@@ -38,13 +41,13 @@ function veespo_get_tokens($category) {
     
   
 function veespo_inject_widget($options) { 
-  $user    =  get_current_user_id();
 
+  $partner =  get_option('veespo_wp_partner');
   $element = "tgt-".$options['target'].time().rand();   
   $target  = $options['target'];
   $title   = $options['title'];
-  
-  $token_user   = veespo_get_tokens($options['category']); 
+  $category = $options['category'];
+  $token_user   = veespo_get_tokens($category); 
   $description = $options['description'];
   
   $html = "<span id=\"$element\"></span>"; 
@@ -54,8 +57,13 @@ function veespo_inject_widget($options) {
   $html.= "     target:'$target',";
   $html.= "     group:'group-vsite',";
   $html.= "     lang:'it',";
-  $html.= "     token:'$token_user',";
+
   
+  if (strlen($token_user) == 0) {
+    $html.= "token_info:{partner:'$partner',category:'$category',anonymous:'true'},";
+  } else {
+    $html.= "     token:'$token_user',";
+  }
   $html.= "     target_info: {";
   $html.= "       local_id:'$target',";
   $html.= "       desc1:'$title',";
