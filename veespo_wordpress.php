@@ -49,6 +49,14 @@ function veespo_inject_widget($options) {
   $category = $options['category'];
   $token_user   = veespo_get_tokens($category); 
   $description = $options['description'];
+
+  $lang = $options['lang'];
+  $key1 = $options['key1'];
+  $key2 = $options['key2'];
+  $key3 = $options['key3'];
+  $key4 = $options['key4'];
+  $key5 = $options['key5'];
+  $version = $options['version'];
   
   $html = "<span id=\"$element\"></span>"; 
   $html.= "<script>"; 
@@ -56,8 +64,14 @@ function veespo_inject_widget($options) {
   $html.= "     title:'$title',";
   $html.= "     target:'$target',";
   $html.= "     group:'group-vsite',";
-  $html.= "     lang:'it',";
+  $html.= "     lang:'$lang',";
 
+  if ($key1 != "") $html.= "     key1:'$key1',";
+  if ($key2 != "") $html.= "     key1:'$key2',";
+  if ($key3 != "") $html.= "     key1:'$key3',";
+  if ($key4 != "") $html.= "     key1:'$key4',";
+  if ($key5 != "") $html.= "     key1:'$key5',";
+  if ($version != "") $html.= "     key1:'$version',";
   
   if (strlen($token_user) == 0) {
     $html.= "token_info:{partner:'$partner',category:'$category',anonymous:'true'},";
@@ -110,6 +124,13 @@ function show_veespo_button($atts) {
           'title' => '',
           'description' => '',
           'use_post' => '',
+          'lang' => 'it',
+          'key1' => '',
+          'key2' => '',
+          'key3' => '',
+          'key4' => '',
+          'key5' => '',
+          'version' => '',
   ), $atts);
   
   
